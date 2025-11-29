@@ -1,22 +1,24 @@
-local lspconfig = require('lspconfig')
-local mason_lspconfig = require('mason-lspconfig')
+-- lua/core/plugin_config/lsp.lua
 
--- Define quais servidores de linguagem você quer que o Mason instale.
+local mason = require("mason")
+local mason_lspconfig = require("mason-lspconfig")
+local cmp_nvim_lsp = require("cmp_nvim_lsp")
+
+-- Lista de servidores que você quer instalar
 local servers = {
   "clangd",
   "lua_ls",
 }
 
--- Configura o Mason para gerenciar os LSPs
-require('mason').setup()
+-- Configura o Mason
+mason.setup()
 mason_lspconfig.setup({
   ensure_installed = servers,
 })
 
--- Atalhos de teclado para funções do LSP
+-- Atalhos do LSP
 local on_attach = function(client, bufnr)
   local opts = { noremap=true, silent=true, buffer=bufnr }
-  -- Use 'K' para ver a documentação, 'gd' para ir para a definição, etc.
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
@@ -26,13 +28,27 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
 end
 
--- Capacidades para o nvim-cmp
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Capacidades para nvim-cmp
+local capabilities = cmp_nvim_lsp.default_capabilities()
 
--- Itera sobre a lista de servidores e configura cada um com as opções padrão.
-for _, server_name in ipairs(servers) do
-  lspconfig[server_name].setup {
-    on_attach = on_attach,
+-- Função utilitária para configurar cada servidor usando a nova API
+local function setup_server(name)
+  local lspconfig = vim.lsp.configs
+  local ok, config = pcall(require, "lspconfig.server_configurations." .. name)
+  if not ok then return end
+
+  vim.lsp.start({
+    name = name,
+    cmd = config.default_config.cmd,
+    root_dir = config.default_config.root_dir,
+    settings = config.default_config.settings,
     capabilities = capabilities,
-  }
+    on_attach = on_attach,
+  })
 end
+
+-- Configura todos os servidores
+for _, server_name in ipairs(servers) do
+  setup_server(server_name)
+end
+
