@@ -1,3 +1,7 @@
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+vim.opt.autochdir = true
+
 vim.keymap.set('n', '<leader>q', ':q<CR>')
 vim.keymap.set('n', '<leader>fq', ':q!<CR>')
 vim.keymap.set('n', '<leader>wq', ':wq<CR>')
