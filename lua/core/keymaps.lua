@@ -18,3 +18,8 @@ vim.keymap.set('n', '<leader>sl', '<C-w>l')
 vim.keymap.set('n', '<leader>sh', '<C-w>h')
 vim.keymap.set('n', '<leader>sj', '<C-w>j')
 vim.keymap.set('n', '<leader>sk', '<C-w>k')
+
+-- keymap de bufferline
+vim.keymap.set('n', '<Tab>', ':bn<CR>')
+vim.keymap.set('n', '<S-Tab>', ':bp<CR>')
+vim.keymap.set('n', '<leader>bd', ':bd<CR>')
