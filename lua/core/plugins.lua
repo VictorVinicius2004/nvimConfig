@@ -48,6 +48,12 @@ return require('packer').startup(function(use)
           require("nvim-autopairs").setup {}
       end
   }
+  use{
+    "stevearc/aerial.nvim",
+    config = function()
+      require("aerial").setup()
+    end,
+  }
   -- ====================================================
 
   -- My plugins here

@@ -23,3 +23,6 @@ vim.keymap.set('n', '<leader>sk', '<C-w>k')
 vim.keymap.set('n', '<Tab>', ':bn<CR>')
 vim.keymap.set('n', '<S-Tab>', ':bp<CR>')
 vim.keymap.set('n', '<leader>bd', ':bd<CR>')
+
+-- keymap de aerial
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
