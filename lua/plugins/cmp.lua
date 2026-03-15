@@ -18,11 +18,12 @@ return {
                 end,
             },
             mapping = cmp.mapping.preset.insert({
-                ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- Rola a documentação para cima
-                ['<C-f>'] = cmp.mapping.scroll_docs(4),  -- Rola a documentação para baixo
-                ['<C-Space>'] = cmp.mapping.complete(),  -- Força o menu a abrir
-                ['<C-e>'] = cmp.mapping.abort(),         -- Fecha o menu
-                ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Confirma a seleção com Enter
+                ['<C-n>'] = cmp.mapping.select_next_item(),
+                ['<C-p>'] = cmp.mapping.select_prev_item(),
+                ['<C-e>'] = cmp.mapping.abort(),
+                ['<CR>'] = cmp.mapping.confirm({ select = false }), 
+                ['<Down>'] = cmp.config.disable,
+                ['<Up>'] = cmp.config.disable,            
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' }, -- Prioridade 1: Inteligência do código
