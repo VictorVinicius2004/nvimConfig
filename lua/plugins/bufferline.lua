@@ -59,7 +59,7 @@ return {
         duplicates_across_groups = true, 
         persist_buffer_sort = true, 
         move_wraps_at_ends = false, 
-        separator_style = "slant", -- "slant", "slope", "thick" ou "thin"
+        separator_style = "thick", -- "slant", "slope", "thick" ou "thin"
         enforce_regular_tabs = false,
         always_show_bufferline = true,
         auto_toggle_bufferline = true,
